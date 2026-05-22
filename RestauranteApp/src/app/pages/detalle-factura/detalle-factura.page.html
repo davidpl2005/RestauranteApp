@@ -1,0 +1,98 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/perfil/facturas" text="Facturas"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detalle Factura</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="detalle-content">
+
+  <div *ngIf="cargando" class="loading-container">
+    <ion-spinner name="crescent" color="primary"></ion-spinner>
+  </div>
+
+  <div *ngIf="!cargando && factura">
+
+    <!-- Encabezado empresa -->
+    <div class="empresa-header">
+      <ion-icon name="restaurant" class="empresa-logo"></ion-icon>
+      <h2>Restaurante Bambino</h2>
+      <p>NIT: 900.123.456-7</p>
+      <p>info@restaurante.com</p>
+    </div>
+
+    <!-- Número de factura -->
+    <div class="numero-factura-card">
+      <span class="etiqueta">FACTURA</span>
+      <span class="numero">{{ factura.numero_factura }}</span>
+      <span class="fecha">{{ factura.fecha_emision | date:'dd/MM/yyyy HH:mm' }}</span>
+    </div>
+
+    <!-- Datos del cliente -->
+    <div class="seccion-card">
+      <h3 class="seccion-titulo">
+        <ion-icon name="person-outline"></ion-icon>
+        Cliente
+      </h3>
+      <div class="dato-linea">
+        <span class="dato-label">Nombre</span>
+        <span class="dato-valor">{{ factura.nombre_usuario }}</span>
+      </div>
+      <div class="dato-linea">
+        <span class="dato-label">Correo</span>
+        <span class="dato-valor">{{ factura.correo }}</span>
+      </div>
+      <div class="dato-linea">
+        <span class="dato-label">Método de pago</span>
+        <span class="dato-valor">{{ metodoNombres[factura.metodo_pago] }}</span>
+      </div>
+      <div class="dato-linea">
+        <span class="dato-label">Pedido</span>
+        <span class="dato-valor">#{{ factura.id_pedido }}</span>
+      </div>
+    </div>
+
+    <!-- Productos -->
+    <div class="seccion-card">
+      <h3 class="seccion-titulo">
+        <ion-icon name="fast-food-outline"></ion-icon>
+        Productos
+      </h3>
+
+      <div class="tabla-header">
+        <span>Producto</span>
+        <span>Cant.</span>
+        <span>Subtotal</span>
+      </div>
+
+      <div *ngFor="let item of detalles" class="tabla-fila">
+        <span class="tabla-nombre">{{ item.nombre_producto }}</span>
+        <span class="tabla-cant">x{{ item.cantidad }}</span>
+        <span class="tabla-subtotal">${{ item.subtotal | number:'1.2-2' }}</span>
+      </div>
+    </div>
+
+    <!-- Totales -->
+    <div class="seccion-card totales-card">
+      <div class="total-linea">
+        <span>Subtotal</span>
+        <span>${{ factura.subtotal | number:'1.2-2' }}</span>
+      </div>
+      <div class="total-linea">
+        <span>IVA (19%)</span>
+        <span>${{ factura.iva | number:'1.2-2' }}</span>
+      </div>
+      <div class="total-divider"></div>
+      <div class="total-final">
+        <span>TOTAL</span>
+        <span class="monto-final">${{ factura.total | number:'1.2-2' }}</span>
+      </div>
+    </div>
+
+    <p class="pie-factura">Gracias por tu compra · Restaurante Bambino</p>
+
+  </div>
+
+</ion-content>

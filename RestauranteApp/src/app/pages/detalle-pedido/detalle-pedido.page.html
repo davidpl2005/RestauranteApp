@@ -1,0 +1,103 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/pedidos" text="Pedidos"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detalle del Pedido</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="detalle-content">
+
+  <!-- Loading -->
+  <div *ngIf="cargando" class="loading-container">
+    <ion-spinner name="crescent" color="primary"></ion-spinner>
+  </div>
+
+  <div *ngIf="!cargando && pedido">
+
+    <!-- Estado del pedido -->
+    <div class="estado-banner"
+      [attr.data-color]="getEstado(pedido.estado).color">
+      <div class="estado-icono">
+        <ion-icon [name]="getEstado(pedido.estado).icono"></ion-icon>
+      </div>
+      <div class="estado-info">
+        <span class="estado-label">Estado del pedido</span>
+        <span class="estado-texto">{{ getEstado(pedido.estado).texto }}</span>
+      </div>
+    </div>
+
+    <!-- Info del pedido -->
+    <div class="seccion-card">
+      <h3 class="seccion-titulo">
+        <ion-icon name="information-circle-outline"></ion-icon>
+        Información del Pedido
+      </h3>
+
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">Número</span>
+          <span class="info-valor">#{{ pedido.id_pedido }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Fecha</span>
+          <span class="info-valor">{{ pedido.fecha_pedido | date:'dd/MM/yyyy' }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Hora</span>
+          <span class="info-valor">{{ pedido.fecha_pedido | date:'HH:mm' }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Cliente</span>
+          <span class="info-valor">{{ pedido.nombre_usuario }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Productos -->
+    <div class="seccion-card">
+      <h3 class="seccion-titulo">
+        <ion-icon name="fast-food-outline"></ion-icon>
+        Productos
+      </h3>
+
+      <div *ngFor="let item of detalles" class="producto-item">
+        <div class="producto-imagen">
+          <img *ngIf="item.imagen_url" [src]="item.imagen_url" [alt]="item.nombre_producto">
+          <ion-icon *ngIf="!item.imagen_url" name="fast-food-outline"></ion-icon>
+        </div>
+        <div class="producto-info">
+          <span class="producto-nombre">{{ item.nombre_producto }}</span>
+          <span class="producto-cantidad">Cantidad: {{ item.cantidad }}</span>
+          <span class="producto-precio-unit">${{ item.precio_unitario | number:'1.2-2' }} c/u</span>
+        </div>
+        <span class="producto-subtotal">${{ item.subtotal | number:'1.2-2' }}</span>
+      </div>
+    </div>
+
+    <!-- Resumen de totales -->
+    <div class="seccion-card">
+      <h3 class="seccion-titulo">
+        <ion-icon name="calculator-outline"></ion-icon>
+        Resumen
+      </h3>
+
+      <div class="resumen-linea">
+        <span>Subtotal</span>
+        <span>${{ subtotal | number:'1.2-2' }}</span>
+      </div>
+      <div class="resumen-linea">
+        <span>IVA (19%)</span>
+        <span>${{ iva | number:'1.2-2' }}</span>
+      </div>
+      <div class="resumen-divider"></div>
+      <div class="resumen-total">
+        <span>Total</span>
+        <span class="monto-total">${{ pedido.total | number:'1.2-2' }}</span>
+      </div>
+    </div>
+
+  </div>
+
+</ion-content>

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Storage } from '@ionic/storage-angular';
-import { Observable, from } from 'rxjs';
-import { tap, switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -36,6 +36,26 @@ export class AuthService {
       nombre,
       correo,
       password
+    });
+  }
+
+  actualizarPerfil(nombre: string, correo: string): Observable<any> {
+    return this.http.put(`${this.apiUrl}?ruta=usuario`, {
+      accion: 'perfil',
+      nombre,
+      correo
+    }).pipe(
+      tap(async (res: any) => {
+        await this.storage.set('usuario', res.usuario);
+      })
+    );
+  }
+
+  cambiarPassword(password_actual: string, password_nueva: string): Observable<any> {
+    return this.http.put(`${this.apiUrl}?ruta=usuario`, {
+      accion: 'password',
+      password_actual,
+      password_nueva
     });
   }
 

@@ -1,8 +1,77 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>Mis Pedidos</ion-title>
+    <ion-title>
+      <ion-icon name="receipt"></ion-icon>
+      Mis Pedidos
+    </ion-title>
   </ion-toolbar>
 </ion-header>
+
 <ion-content>
-  <p style="text-align:center; margin-top: 40px;">Cargando pedidos...</p>
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content refreshingSpinner="crescent"></ion-refresher-content>
+  </ion-refresher>
+
+  <!-- Loading -->
+  <div *ngIf="cargando" class="loading-container">
+    <ion-spinner name="crescent" color="primary"></ion-spinner>
+    <p>Cargando pedidos...</p>
+  </div>
+
+  <!-- Sin pedidos -->
+  <div *ngIf="!cargando && pedidos.length === 0" class="empty-state">
+    <ion-icon name="receipt-outline"></ion-icon>
+    <h2>Sin pedidos aún</h2>
+    <p>Cuando realices un pedido aparecerá aquí</p>
+    <ion-button routerLink="/tabs/menu" class="btn-ir">
+      <ion-icon name="restaurant-outline" slot="start"></ion-icon>
+      Ver Menú
+    </ion-button>
+  </div>
+
+  <!-- Lista de pedidos -->
+  <div class="pedidos-lista" *ngIf="!cargando && pedidos.length > 0">
+
+    <ion-card
+      *ngFor="let pedido of pedidos"
+      class="pedido-card"
+      (click)="verDetalle(pedido.id_pedido)">
+
+      <ion-card-content>
+
+        <div class="pedido-header">
+          <span class="pedido-numero">Pedido #{{ pedido.id_pedido }}</span>
+          <ion-badge [color]="getEstado(pedido.estado).color" class="estado-badge">
+            <ion-icon [name]="getEstado(pedido.estado).icono"></ion-icon>
+            {{ getEstado(pedido.estado).texto }}
+          </ion-badge>
+        </div>
+
+        <div class="pedido-info">
+
+          <div class="info-item">
+            <ion-icon name="calendar-outline"></ion-icon>
+            <span>{{ pedido.fecha_pedido | date:'dd/MM/yyyy HH:mm' }}</span>
+          </div>
+
+          <div class="info-item">
+            <ion-icon name="cash-outline"></ion-icon>
+            <span class="monto">${{ pedido.total | number:'1.2-2' }}</span>
+          </div>
+
+        </div>
+
+        <div class="pedido-footer">
+          <span class="ver-detalle">
+            Ver detalle
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </span>
+        </div>
+
+      </ion-card-content>
+    </ion-card>
+
+  </div>
+
 </ion-content>

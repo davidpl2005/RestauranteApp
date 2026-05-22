@@ -6,6 +6,8 @@ ion-tab-bar {
   ion-tab-button {
     --color: #95a5a6;
     --color-selected: #667eea;
+    position: relative;
+    overflow: visible;
 
     ion-icon {
       font-size: 22px;
@@ -16,4 +18,25 @@ ion-tab-bar {
       font-weight: 600;
     }
   }
+}
+
+.tab-carrito {
+  position: relative;
+}
+
+.badge-carrito-tab {
+  position: absolute;
+  top: 4px;
+  right: 28%;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 700;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  --background: #ff3b30;
+  --color: #ffffff;
 }

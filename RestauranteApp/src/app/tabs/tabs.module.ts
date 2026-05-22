@@ -16,8 +16,18 @@ const routes: Routes = [
       },
       {
         path: 'carrito',
-        loadChildren: () =>
-          import('../pages/carrito/carrito.module').then(m => m.CarritoPageModule)
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../pages/carrito/carrito.module').then(m => m.CarritoPageModule)
+          },
+          {
+            path: 'checkout',
+            loadChildren: () =>
+              import('../pages/checkout/checkout.module').then(m => m.CheckoutPageModule)
+          }
+        ]
       },
       {
         path: 'pedidos',

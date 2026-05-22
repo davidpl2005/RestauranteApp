@@ -1,0 +1,17 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { IonicModule } from '@ionic/angular';
+import { RouterModule, Routes } from '@angular/router';
+import { DetalleFacturaPage } from './detalle-factura.page';
+
+const routes: Routes = [{ path: '', component: DetalleFacturaPage }];
+
+@NgModule({
+  declarations: [DetalleFacturaPage],
+  imports: [
+    CommonModule,
+    IonicModule,
+    RouterModule.forChild(routes)
+  ]
+})
+export class DetalleFacturaPageModule {}

@@ -1,0 +1,94 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/perfil" text="Perfil"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Editar Perfil</ion-title>
+    <ion-buttons slot="end">
+      <ion-button
+        (click)="guardar()"
+        [disabled]="!form || form.invalid || !hayCambios()">
+        <strong>Guardar</strong>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="editar-content">
+
+  <div *ngIf="form">
+
+    <!-- Avatar -->
+    <div class="avatar-section">
+      <div class="avatar-circle">
+        <span class="avatar-iniciales">
+          {{ form.get('nombre')?.value ? form.get('nombre')?.value[0]?.toUpperCase() : '?' }}
+        </span>
+      </div>
+      <p class="avatar-hint">Edita tu nombre y correo</p>
+    </div>
+
+    <!-- Formulario -->
+    <div class="form-card">
+
+      <form [formGroup]="form">
+
+        <div class="campo-grupo">
+          <label class="campo-label">Nombre completo</label>
+          <ion-item class="campo-item" lines="none">
+            <ion-icon name="person-outline" slot="start" class="campo-icono"></ion-icon>
+            <ion-input
+              formControlName="nombre"
+              type="text"
+              placeholder="Tu nombre completo"
+              autocomplete="name">
+            </ion-input>
+          </ion-item>
+          <div class="campo-error"
+            *ngIf="form.get('nombre')?.invalid && form.get('nombre')?.touched">
+            Mínimo 3 caracteres
+          </div>
+        </div>
+
+        <div class="campo-grupo">
+          <label class="campo-label">Correo electrónico</label>
+          <ion-item class="campo-item" lines="none">
+            <ion-icon name="mail-outline" slot="start" class="campo-icono"></ion-icon>
+            <ion-input
+              formControlName="correo"
+              type="email"
+              placeholder="tu@correo.com"
+              autocomplete="email">
+            </ion-input>
+          </ion-item>
+          <div class="campo-error"
+            *ngIf="form.get('correo')?.invalid && form.get('correo')?.touched">
+            Ingresa un correo válido
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+
+    <!-- Info -->
+    <div class="info-card">
+      <ion-icon name="shield-checkmark-outline" color="primary"></ion-icon>
+      <p>Tus datos se actualizarán de forma segura en nuestra base de datos.</p>
+    </div>
+
+    <!-- Botón guardar -->
+    <div class="btn-container">
+      <ion-button
+        expand="block"
+        class="btn-guardar"
+        (click)="guardar()"
+        [disabled]="form.invalid || !hayCambios()">
+        <ion-icon name="save-outline" slot="start"></ion-icon>
+        Guardar Cambios
+      </ion-button>
+    </div>
+
+  </div>
+
+</ion-content>
