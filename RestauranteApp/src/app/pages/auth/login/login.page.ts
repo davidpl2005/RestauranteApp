@@ -25,7 +25,7 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-      correo: ['', [Validators.required, Validators.email]],
+      correo:   ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(3)]]
     });
   }
@@ -36,7 +36,8 @@ export class LoginPage implements OnInit {
 
   async login() {
     if (this.form.invalid) {
-      this.mostrarToast('Por favor completa todos los campos correctamente', 'warning');
+      this.form.markAllAsTouched();
+      this.mostrarToast('Completa todos los campos correctamente', 'warning');
       return;
     }
 
@@ -66,7 +67,7 @@ export class LoginPage implements OnInit {
     const toast = await this.toastCtrl.create({
       message: mensaje,
       duration: 2500,
-      color: color,
+      color,
       position: 'bottom'
     });
     await toast.present();

@@ -7,13 +7,13 @@
       <ion-label>Menú</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="carrito" class="tab-carrito">
+    <ion-tab-button tab="carrito" class="tab-carrito-btn">
       <ion-icon name="cart-outline"></ion-icon>
-
-      <ion-badge *ngIf="totalItemsCarrito > 0" class="badge-carrito-tab">
-        {{ totalItemsCarrito }}
+      <ion-badge
+        *ngIf="totalItemsCarrito > 0"
+        class="carrito-badge">
+        {{ totalItemsCarrito > 9 ? '9+' : totalItemsCarrito }}
       </ion-badge>
-
       <ion-label>Carrito</ion-label>
     </ion-tab-button>
 

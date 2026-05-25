@@ -1,147 +1,145 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-title>
-      <ion-icon name="person"></ion-icon>
-      Mi Perfil
+      <div class="toolbar-title">
+        <ion-icon name="person-outline"></ion-icon>
+        <span>Mi Perfil</span>
+      </div>
     </ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="irAEditarPerfil()">
-        <ion-icon name="create-outline" slot="icon-only"></ion-icon>
-      </ion-button>
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="perfil-content">
 
-  <div *ngIf="usuario">
+  <div *ngIf="usuario" class="perfil-wrapper">
 
-    <!-- Avatar y datos -->
-    <!-- Avatar con foto -->
-    <div class="perfil-header">
+    <!-- Header del perfil -->
+    <div class="perfil-hero">
 
-      <div class="avatar-wrapper" (click)="cambiarFoto()">
-        <!-- Foto si existe -->
-        <img *ngIf="fotoPerfil" [src]="fotoPerfil" class="avatar-foto" alt="Foto de perfil">
-
-        <!-- Iniciales si no hay foto -->
-        <div class="avatar" *ngIf="!fotoPerfil">
-          <span class="iniciales">{{ getIniciales() }}</span>
+      <div class="avatar-wrap" (click)="cambiarFoto()">
+        <img
+          *ngIf="fotoPerfil"
+          [src]="fotoPerfil"
+          class="avatar-foto"
+          alt="Foto de perfil">
+        <div class="avatar-iniciales" *ngIf="!fotoPerfil">
+          {{ getIniciales() }}
         </div>
-
-        <!-- Botón editar foto -->
-        <div class="avatar-edit-btn">
+        <div class="avatar-camara">
           <ion-icon name="camera"></ion-icon>
         </div>
       </div>
 
-      <h2 class="nombre">{{ usuario.nombre }}</h2>
-      <p class="correo">{{ usuario.correo }}</p>
-      <ion-badge color="primary" class="rol-badge">{{ getRolTexto() }}</ion-badge>
+      <h2 class="perfil-nombre">{{ usuario.nombre }}</h2>
+      <p class="perfil-correo">{{ usuario.correo }}</p>
 
-      <ion-button fill="outline" size="small" class="btn-editar-perfil" (click)="irAEditarPerfil()">
-        <ion-icon name="create-outline" slot="start"></ion-icon>
-        Editar Perfil
-      </ion-button>
+      <div class="perfil-rol-badge">
+        <ion-icon name="shield-checkmark-outline"></ion-icon>
+        {{ getRolTexto() }}
+      </div>
+
     </div>
 
-    <!-- Opciones -->
-    <div class="opciones-lista">
+    <!-- Sección Mi Cuenta -->
+    <p class="section-title" style="padding: 0 16px;">Mi Cuenta</p>
 
-      <h3 class="opciones-titulo">Mi Cuenta</h3>
+    <div class="opciones-wrap">
 
-      <ion-card class="opcion-card" (click)="irAFacturas()">
-        <ion-card-content>
-          <div class="opcion-item">
-            <div class="opcion-icono" style="background: #e8f5e9;">
-              <ion-icon name="document-text-outline" style="color: #27ae60;"></ion-icon>
-            </div>
-            <div class="opcion-info">
-              <span class="opcion-nombre">Mis Facturas</span>
-              <span class="opcion-desc">Historial de tus facturas</span>
-            </div>
-            <ion-icon name="chevron-forward-outline" class="opcion-flecha"></ion-icon>
+      <div class="opcion-card" (click)="irAEditarPerfil()">
+        <div class="option-item">
+          <div class="option-icon" style="background:#EFF6FF;">
+            <ion-icon name="create-outline" style="color:#2563EB;"></ion-icon>
           </div>
-        </ion-card-content>
-      </ion-card>
-
-      <ion-card class="opcion-card" routerLink="/tabs/pedidos">
-        <ion-card-content>
-          <div class="opcion-item">
-            <div class="opcion-icono" style="background: #e3f2fd;">
-              <ion-icon name="receipt-outline" style="color: #3498db;"></ion-icon>
-            </div>
-            <div class="opcion-info">
-              <span class="opcion-nombre">Mis Pedidos</span>
-              <span class="opcion-desc">Historial de pedidos</span>
-            </div>
-            <ion-icon name="chevron-forward-outline" class="opcion-flecha"></ion-icon>
+          <div class="option-info">
+            <span class="option-title">Editar Perfil</span>
+            <span class="option-desc">Cambia tu nombre o correo</span>
           </div>
-        </ion-card-content>
-      </ion-card>
+          <ion-icon name="chevron-forward-outline" class="option-arrow"></ion-icon>
+        </div>
+      </div>
 
-      <ion-card class="opcion-card" (click)="irAEditarPerfil()">
-        <ion-card-content>
-          <div class="opcion-item">
-            <div class="opcion-icono" style="background: #f3e5f5;">
-              <ion-icon name="create-outline" style="color: #9b59b6;"></ion-icon>
-            </div>
-            <div class="opcion-info">
-              <span class="opcion-nombre">Editar Perfil</span>
-              <span class="opcion-desc">Cambia tu nombre o correo</span>
-            </div>
-            <ion-icon name="chevron-forward-outline" class="opcion-flecha"></ion-icon>
+      <div class="opcion-card" (click)="irACambiarPassword()">
+        <div class="option-item">
+          <div class="option-icon" style="background:#FEF2F2;">
+            <ion-icon name="lock-closed-outline" style="color:#EF4444;"></ion-icon>
           </div>
-        </ion-card-content>
-      </ion-card>
-
-      <ion-card class="opcion-card" (click)="irACambiarPassword()">
-        <ion-card-content>
-          <div class="opcion-item">
-            <div class="opcion-icono" style="background: #fce4ec;">
-              <ion-icon name="lock-closed-outline" style="color: #e74c3c;"></ion-icon>
-            </div>
-            <div class="opcion-info">
-              <span class="opcion-nombre">Cambiar Contraseña</span>
-              <span class="opcion-desc">Actualiza tu contraseña de acceso</span>
-            </div>
-            <ion-icon name="chevron-forward-outline" class="opcion-flecha"></ion-icon>
+          <div class="option-info">
+            <span class="option-title">Cambiar Contraseña</span>
+            <span class="option-desc">Actualiza tu contraseña de acceso</span>
           </div>
-        </ion-card-content>
-      </ion-card>
+          <ion-icon name="chevron-forward-outline" class="option-arrow"></ion-icon>
+        </div>
+      </div>
 
-      <!-- Configuración -->
-      <h3 class="opciones-titulo" style="margin-top: 16px;">Configuración</h3>
-
-      <ion-card class="opcion-card">
-        <ion-card-content>
-          <div class="opcion-item">
-            <div class="opcion-icono" style="background: #e8eaf6;">
-              <ion-icon [name]="esModoOscuro() ? 'sunny-outline' : 'moon-outline'" style="color: #667eea;">
-              </ion-icon>
-            </div>
-            <div class="opcion-info">
-              <span class="opcion-nombre">Modo Oscuro</span>
-              <span class="opcion-desc">Cambia la apariencia de la app</span>
-            </div>
-            <ion-toggle [checked]="esModoOscuro()" (ionChange)="toggleTema()" color="primary">
-            </ion-toggle>
+      <div class="opcion-card" (click)="irAFacturas()">
+        <div class="option-item">
+          <div class="option-icon" style="background:#ECFDF5;">
+            <ion-icon name="document-text-outline" style="color:#10B981;"></ion-icon>
           </div>
-        </ion-card-content>
-      </ion-card>
+          <div class="option-info">
+            <span class="option-title">Mis Facturas</span>
+            <span class="option-desc">Historial de tus facturas</span>
+          </div>
+          <ion-icon name="chevron-forward-outline" class="option-arrow"></ion-icon>
+        </div>
+      </div>
 
+      <div class="opcion-card" routerLink="/tabs/pedidos">
+        <div class="option-item">
+          <div class="option-icon" style="background:#EFF6FF;">
+            <ion-icon name="receipt-outline" style="color:#0EA5E9;"></ion-icon>
+          </div>
+          <div class="option-info">
+            <span class="option-title">Mis Pedidos</span>
+            <span class="option-desc">Historial de pedidos realizados</span>
+          </div>
+          <ion-icon name="chevron-forward-outline" class="option-arrow"></ion-icon>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Sección Configuración -->
+    <p class="section-title" style="padding: 0 16px;">Configuración</p>
+
+    <div class="opciones-wrap">
+
+      <div class="opcion-card">
+        <div class="option-item">
+          <div class="option-icon" style="background:#EFF6FF;">
+            <ion-icon
+              [name]="esModoOscuro() ? 'sunny-outline' : 'moon-outline'"
+              style="color:#2563EB;">
+            </ion-icon>
+          </div>
+          <div class="option-info">
+            <span class="option-title">Modo Oscuro</span>
+            <span class="option-desc">Cambia la apariencia de la app</span>
+          </div>
+          <ion-toggle
+            [checked]="esModoOscuro()"
+            (ionChange)="toggleTema()"
+            color="primary">
+          </ion-toggle>
+        </div>
+      </div>
 
     </div>
 
     <!-- Cerrar sesión -->
-    <div class="logout-container">
-      <ion-button expand="block" color="danger" fill="outline" class="btn-logout" (click)="confirmarLogout()">
+    <div class="logout-wrap">
+      <ion-button
+        expand="block"
+        fill="outline"
+        color="danger"
+        class="btn-logout"
+        (click)="confirmarLogout()">
         <ion-icon name="log-out-outline" slot="start"></ion-icon>
         Cerrar Sesión
       </ion-button>
     </div>
 
-    <p class="version">Restaurante Bambino v1.0</p>
+    <p class="version-text">Restaurante Bambino v1.0</p>
 
   </div>
 

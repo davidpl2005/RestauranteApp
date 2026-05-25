@@ -1,8 +1,10 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-title>
-      <ion-icon name="receipt"></ion-icon>
-      Mis Pedidos
+      <div class="toolbar-title">
+        <ion-icon name="receipt-outline"></ion-icon>
+        <span>Mis Pedidos</span>
+      </div>
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -21,56 +23,52 @@
 
   <!-- Sin pedidos -->
   <div *ngIf="!cargando && pedidos.length === 0" class="empty-state">
-    <ion-icon name="receipt-outline"></ion-icon>
-    <h2>Sin pedidos aún</h2>
-    <p>Cuando realices un pedido aparecerá aquí</p>
-    <ion-button routerLink="/tabs/menu" class="btn-ir">
+    <ion-icon name="receipt-outline" class="empty-icon"></ion-icon>
+    <p class="empty-title">Sin pedidos aún</p>
+    <p class="empty-text">Cuando realices un pedido aparecerá aquí</p>
+    <ion-button routerLink="/tabs/menu" class="btn-primary">
       <ion-icon name="restaurant-outline" slot="start"></ion-icon>
       Ver Menú
     </ion-button>
   </div>
 
-  <!-- Lista de pedidos -->
+  <!-- Lista -->
   <div class="pedidos-lista" *ngIf="!cargando && pedidos.length > 0">
 
-    <ion-card
+    <div
       *ngFor="let pedido of pedidos"
       class="pedido-card"
       (click)="verDetalle(pedido.id_pedido)">
 
-      <ion-card-content>
-
-        <div class="pedido-header">
-          <span class="pedido-numero">Pedido #{{ pedido.id_pedido }}</span>
-          <ion-badge [color]="getEstado(pedido.estado).color" class="estado-badge">
-            <ion-icon [name]="getEstado(pedido.estado).icono"></ion-icon>
-            {{ getEstado(pedido.estado).texto }}
-          </ion-badge>
-        </div>
-
-        <div class="pedido-info">
-
-          <div class="info-item">
-            <ion-icon name="calendar-outline"></ion-icon>
-            <span>{{ pedido.fecha_pedido | date:'dd/MM/yyyy HH:mm' }}</span>
-          </div>
-
-          <div class="info-item">
-            <ion-icon name="cash-outline"></ion-icon>
-            <span class="monto">${{ pedido.total | number:'1.2-2' }}</span>
-          </div>
-
-        </div>
-
-        <div class="pedido-footer">
-          <span class="ver-detalle">
-            Ver detalle
-            <ion-icon name="chevron-forward-outline"></ion-icon>
+      <!-- Encabezado -->
+      <div class="pedido-head">
+        <div class="pedido-num-wrap">
+          <span class="pedido-num">Pedido #{{ pedido.id_pedido }}</span>
+          <span class="pedido-fecha">
+            {{ pedido.fecha_pedido | date:'dd/MM/yyyy · HH:mm' }}
           </span>
         </div>
+        <div
+          class="estado-badge"
+          [style.background]="getEstado(pedido.estado).bg"
+          [style.color]="getEstado(pedido.estado).color">
+          <ion-icon [name]="getEstado(pedido.estado).icono"></ion-icon>
+          {{ getEstado(pedido.estado).texto }}
+        </div>
+      </div>
 
-      </ion-card-content>
-    </ion-card>
+      <div class="app-divider" style="margin: 10px 0;"></div>
+
+      <!-- Pie -->
+      <div class="pedido-foot">
+        <span class="pedido-total">${{ pedido.total | number:'1.2-2' }}</span>
+        <span class="pedido-ver">
+          Ver detalle
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+        </span>
+      </div>
+
+    </div>
 
   </div>
 

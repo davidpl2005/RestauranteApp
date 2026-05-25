@@ -1,104 +1,112 @@
 .register-content {
-  --background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --background: var(--color-bg);
 }
 
-.register-container {
+.register-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 0 0 40px;
+}
+
+// Hero superior
+.register-hero {
+  background: var(--color-primary);
+  padding: 50px 24px 44px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: 30px 20px;
-}
-
-.register-header {
   text-align: center;
-  margin-bottom: 35px;
-  color: white;
+  border-bottom-left-radius: 32px;
+  border-bottom-right-radius: 32px;
 
-  .logo-circle {
-    width: 80px;
-    height: 80px;
+  .hero-logo {
+    width: 72px;
+    height: 72px;
     background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.35);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 15px;
-    border: 3px solid rgba(255, 255, 255, 0.4);
+    margin-bottom: 14px;
 
-    .logo-icon {
-      font-size: 38px;
-      color: white;
+    ion-icon {
+      font-size: 34px;
+      color: #ffffff;
     }
   }
 
-  h1 {
-    font-size: 24px;
+  .hero-title {
+    font-size: 22px;
     font-weight: 700;
-    margin: 0 0 6px;
+    color: #ffffff;
+    margin-bottom: 6px;
   }
 
-  p {
+  .hero-subtitle {
     font-size: 14px;
-    opacity: 0.85;
-    margin: 0;
+    color: rgba(255, 255, 255, 0.8);
   }
 }
 
-.register-form {
-  width: 100%;
-  max-width: 400px;
-  background: white;
-  border-radius: 20px;
-  padding: 30px 25px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
-}
+// Tarjeta
+.register-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  margin: 24px 20px 0;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-border-light);
 
-.input-group {
-  margin-bottom: 16px;
-}
-
-.input-item {
-  --background: #f5f7fa;
-  --border-radius: 12px;
-  --padding-start: 15px;
-  border-radius: 12px;
-  margin-bottom: 4px;
-
-  .input-icon {
-    color: #667eea;
+  .card-title {
     font-size: 20px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 4px;
+  }
+
+  .card-subtitle {
+    font-size: 13px;
+    color: var(--color-text-muted);
+    margin-bottom: 24px;
+  }
+}
+
+// Botón
+.btn-register {
+  margin-top: 8px;
+}
+
+// Footer con link
+.card-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  margin-top: 20px;
+
+  .footer-text {
+    font-size: 14px;
+    color: var(--color-text-muted);
+  }
+
+  .footer-link {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--color-primary);
     cursor: pointer;
   }
 }
 
-.error-msg {
-  color: #e74c3c;
-  font-size: 12px;
-  padding-left: 10px;
-  margin-top: 4px;
-}
+// Modo oscuro
+body.dark {
+  .register-hero {
+    background: #1E3A8A;
+  }
 
-.btn-register {
-  --background: linear-gradient(135deg, #667eea, #764ba2);
-  --border-radius: 12px;
-  --padding-top: 16px;
-  --padding-bottom: 16px;
-  font-size: 16px;
-  font-weight: 600;
-  margin-top: 10px;
-}
-
-.login-link {
-  text-align: center;
-  margin-top: 20px;
-  font-size: 14px;
-  color: #666;
-
-  .link-text {
-    color: #667eea;
-    font-weight: 600;
-    cursor: pointer;
+  .register-card {
+    background: var(--color-surface);
+    border-color: var(--color-border);
   }
 }

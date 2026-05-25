@@ -1,7 +1,11 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs/perfil" text="Perfil"></ion-back-button>
+      <ion-back-button
+        defaultHref="/tabs/perfil"
+        text="Perfil"
+        color="light">
+      </ion-back-button>
     </ion-buttons>
     <ion-title>Mis Facturas</ion-title>
   </ion-toolbar>
@@ -13,55 +17,72 @@
     <ion-refresher-content refreshingSpinner="crescent"></ion-refresher-content>
   </ion-refresher>
 
+  <!-- Loading -->
   <div *ngIf="cargando" class="loading-container">
     <ion-spinner name="crescent" color="primary"></ion-spinner>
+    <p>Cargando facturas...</p>
   </div>
 
+  <!-- Sin facturas -->
   <div *ngIf="!cargando && facturas.length === 0" class="empty-state">
-    <ion-icon name="document-text-outline"></ion-icon>
-    <h2>Sin facturas aún</h2>
-    <p>Las facturas se generan al realizar un pago</p>
+    <ion-icon name="document-text-outline" class="empty-icon"></ion-icon>
+    <p class="empty-title">Sin facturas aún</p>
+    <p class="empty-text">Las facturas se generan al realizar un pago</p>
+    <ion-button routerLink="/tabs/menu" class="btn-primary">
+      <ion-icon name="restaurant-outline" slot="start"></ion-icon>
+      Ver Menú
+    </ion-button>
   </div>
 
+  <!-- Lista -->
   <div class="facturas-lista" *ngIf="!cargando && facturas.length > 0">
 
-    <ion-card
+    <div
       *ngFor="let factura of facturas"
       class="factura-card"
       (click)="verDetalle(factura.id_factura)">
 
-      <ion-card-content>
-
-        <div class="factura-header">
+      <!-- Encabezado -->
+      <div class="factura-head">
+        <div class="factura-icono">
+          <ion-icon name="document-text-outline"></ion-icon>
+        </div>
+        <div class="factura-head-info">
           <span class="factura-numero">{{ factura.numero_factura }}</span>
-          <ion-badge color="success">Emitida</ion-badge>
-        </div>
-
-        <div class="factura-info">
-          <div class="info-item">
-            <ion-icon name="calendar-outline"></ion-icon>
-            <span>{{ factura.fecha_emision | date:'dd/MM/yyyy HH:mm' }}</span>
-          </div>
-          <div class="info-item">
-            <ion-icon name="receipt-outline"></ion-icon>
-            <span>Pedido #{{ factura.id_pedido }}</span>
-          </div>
-          <div class="info-item">
-            <ion-icon name="card-outline"></ion-icon>
-            <span>{{ metodoNombres[factura.metodo_pago] || factura.metodo_pago }}</span>
-          </div>
-        </div>
-
-        <div class="factura-footer">
-          <span class="monto-total">${{ factura.total | number:'1.2-2' }}</span>
-          <span class="ver-detalle">
-            Ver factura
-            <ion-icon name="chevron-forward-outline"></ion-icon>
+          <span class="factura-fecha">
+            {{ factura.fecha_emision | date:'dd/MM/yyyy · HH:mm' }}
           </span>
         </div>
+        <div class="factura-badge">
+          <ion-icon name="checkmark-circle"></ion-icon>
+          Emitida
+        </div>
+      </div>
 
-      </ion-card-content>
-    </ion-card>
+      <div class="app-divider" style="margin: 10px 0;"></div>
+
+      <!-- Datos -->
+      <div class="factura-datos">
+        <div class="factura-dato">
+          <ion-icon name="receipt-outline"></ion-icon>
+          <span>Pedido #{{ factura.id_pedido }}</span>
+        </div>
+        <div class="factura-dato">
+          <ion-icon name="wallet-outline"></ion-icon>
+          <span>{{ metodoNombres[factura.metodo_pago] || factura.metodo_pago }}</span>
+        </div>
+      </div>
+
+      <!-- Pie -->
+      <div class="factura-foot">
+        <span class="factura-total">${{ factura.total | number:'1.2-2' }}</span>
+        <span class="factura-ver">
+          Ver factura
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+        </span>
+      </div>
+
+    </div>
 
   </div>
 

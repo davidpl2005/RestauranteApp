@@ -8,7 +8,7 @@ import { AuthService } from '../../../core/services/auth.service';
   selector: 'app-register',
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
-  standalone: false,
+  standalone: false
 })
 export class RegisterPage implements OnInit {
 
@@ -25,8 +25,8 @@ export class RegisterPage implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-      nombre: ['', [Validators.required, Validators.minLength(3)]],
-      correo: ['', [Validators.required, Validators.email]],
+      nombre:   ['', [Validators.required, Validators.minLength(3)]],
+      correo:   ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(3)]]
     });
   }
@@ -37,7 +37,8 @@ export class RegisterPage implements OnInit {
 
   async register() {
     if (this.form.invalid) {
-      this.mostrarToast('Por favor completa todos los campos correctamente', 'warning');
+      this.form.markAllAsTouched();
+      this.mostrarToast('Completa todos los campos correctamente', 'warning');
       return;
     }
 
@@ -67,7 +68,7 @@ export class RegisterPage implements OnInit {
     const toast = await this.toastCtrl.create({
       message: mensaje,
       duration: 2500,
-      color: color,
+      color,
       position: 'bottom'
     });
     await toast.present();

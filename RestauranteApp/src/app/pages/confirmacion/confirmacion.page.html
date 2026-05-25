@@ -1,57 +1,68 @@
 <ion-content class="confirmacion-content">
 
-  <div class="confirmacion-container">
+  <div class="confirmacion-wrapper">
 
-    <!-- Animación de éxito -->
-    <div class="success-circle">
-      <ion-icon name="checkmark" class="check-icon"></ion-icon>
+    <!-- Ícono de éxito -->
+    <div class="success-area" [class.visible]="animando">
+
+      <div class="success-circle">
+        <ion-icon name="checkmark"></ion-icon>
+      </div>
+
+      <h1 class="success-titulo">¡Pago Exitoso!</h1>
+      <p class="success-sub">Tu pedido ha sido procesado correctamente</p>
+
     </div>
 
-    <h1 class="titulo-exito">¡Pago Exitoso!</h1>
-    <p class="subtitulo">Tu pedido ha sido procesado correctamente</p>
-
     <!-- Referencia -->
-    <div class="referencia-card">
+    <div class="ref-pill" [class.visible]="animando">
       <ion-icon name="document-text-outline"></ion-icon>
-      <span>Referencia: <strong>{{ referencia }}</strong></span>
+      <span>Ref: <strong>{{ referencia }}</strong></span>
     </div>
 
     <!-- Detalles -->
-    <div class="detalles-card">
+    <div class="detalles-card app-card-lg" [class.visible]="animando">
 
-      <div class="detalle-linea">
+      <div class="detalle-fila">
         <span class="detalle-label">Número de Pedido</span>
         <span class="detalle-valor">#{{ id_pedido }}</span>
       </div>
 
-      <div class="detalle-linea">
+      <div class="app-divider"></div>
+
+      <div class="detalle-fila">
         <span class="detalle-label">Método de Pago</span>
         <span class="detalle-valor">{{ metodoNombres[metodo] }}</span>
       </div>
 
-      <div class="detalle-linea">
+      <div class="app-divider"></div>
+
+      <div class="detalle-fila">
         <span class="detalle-label">Total Pagado</span>
-        <span class="detalle-valor monto">${{ total | number:'1.2-2' }}</span>
+        <span class="detalle-valor detalle-monto">${{ total | number:'1.2-2' }}</span>
       </div>
 
-      <div class="detalle-linea">
+      <div class="app-divider"></div>
+
+      <div class="detalle-fila">
         <span class="detalle-label">Factura</span>
         <span class="detalle-valor">#{{ id_factura }}</span>
       </div>
 
     </div>
 
-    <!-- Info -->
-    <div class="info-card">
-      <ion-icon name="information-circle-outline" color="primary"></ion-icon>
+    <!-- Aviso -->
+    <div class="aviso-card" [class.visible]="animando">
+      <ion-icon name="time-outline"></ion-icon>
       <p>Tu pedido está siendo preparado. Puedes ver el estado en la sección de Pedidos.</p>
     </div>
 
     <!-- Botones -->
-    <div class="botones">
+    <div class="botones" [class.visible]="animando">
+
       <ion-button
         expand="block"
-        class="btn-pedidos"
+        class="btn-primary"
         (click)="irAPedidos()">
         <ion-icon name="receipt-outline" slot="start"></ion-icon>
         Ver Mis Pedidos
@@ -60,11 +71,12 @@
       <ion-button
         expand="block"
         fill="outline"
-        class="btn-menu"
+        class="btn-outline"
         (click)="irAlMenu()">
         <ion-icon name="restaurant-outline" slot="start"></ion-icon>
         Volver al Menú
       </ion-button>
+
     </div>
 
   </div>

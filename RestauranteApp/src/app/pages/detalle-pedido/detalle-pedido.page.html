@@ -1,7 +1,11 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs/pedidos" text="Pedidos"></ion-back-button>
+      <ion-back-button
+        defaultHref="/tabs/pedidos"
+        text="Pedidos"
+        color="light">
+      </ion-back-button>
     </ion-buttons>
     <ion-title>Detalle del Pedido</ion-title>
   </ion-toolbar>
@@ -9,31 +13,36 @@
 
 <ion-content class="detalle-content">
 
-  <!-- Loading -->
   <div *ngIf="cargando" class="loading-container">
     <ion-spinner name="crescent" color="primary"></ion-spinner>
+    <p>Cargando pedido...</p>
   </div>
 
-  <div *ngIf="!cargando && pedido">
+  <div *ngIf="!cargando && pedido" class="detalle-inner">
 
-    <!-- Estado del pedido -->
-    <div class="estado-banner"
-      [attr.data-color]="getEstado(pedido.estado).color">
-      <div class="estado-icono">
+    <!-- Banner de estado -->
+    <div
+      class="estado-banner"
+      [style.background]="getEstado(pedido.estado).bg"
+      [style.color]="getEstado(pedido.estado).color">
+      <div class="estado-icono-wrap">
         <ion-icon [name]="getEstado(pedido.estado).icono"></ion-icon>
       </div>
-      <div class="estado-info">
+      <div class="estado-texto-wrap">
         <span class="estado-label">Estado del pedido</span>
-        <span class="estado-texto">{{ getEstado(pedido.estado).texto }}</span>
+        <span class="estado-valor">{{ getEstado(pedido.estado).texto }}</span>
       </div>
     </div>
 
-    <!-- Info del pedido -->
-    <div class="seccion-card">
-      <h3 class="seccion-titulo">
-        <ion-icon name="information-circle-outline"></ion-icon>
-        Información del Pedido
-      </h3>
+    <!-- Info general -->
+    <div class="app-card-lg seccion">
+      <div class="seccion-header">
+        <div class="seccion-icono" style="background: var(--color-primary-soft);">
+          <ion-icon name="information-circle-outline"
+            style="color: var(--color-primary);"></ion-icon>
+        </div>
+        <h3 class="seccion-titulo">Información</h3>
+      </div>
 
       <div class="info-grid">
         <div class="info-item">
@@ -42,11 +51,15 @@
         </div>
         <div class="info-item">
           <span class="info-label">Fecha</span>
-          <span class="info-valor">{{ pedido.fecha_pedido | date:'dd/MM/yyyy' }}</span>
+          <span class="info-valor">
+            {{ pedido.fecha_pedido | date:'dd/MM/yyyy' }}
+          </span>
         </div>
         <div class="info-item">
           <span class="info-label">Hora</span>
-          <span class="info-valor">{{ pedido.fecha_pedido | date:'HH:mm' }}</span>
+          <span class="info-valor">
+            {{ pedido.fecha_pedido | date:'HH:mm' }}
+          </span>
         </div>
         <div class="info-item">
           <span class="info-label">Cliente</span>
@@ -56,45 +69,63 @@
     </div>
 
     <!-- Productos -->
-    <div class="seccion-card">
-      <h3 class="seccion-titulo">
-        <ion-icon name="fast-food-outline"></ion-icon>
-        Productos
-      </h3>
+    <div class="app-card-lg seccion">
+      <div class="seccion-header">
+        <div class="seccion-icono" style="background: var(--color-warning-soft);">
+          <ion-icon name="fast-food-outline"
+            style="color: var(--color-warning);"></ion-icon>
+        </div>
+        <h3 class="seccion-titulo">Productos</h3>
+      </div>
 
-      <div *ngFor="let item of detalles" class="producto-item">
-        <div class="producto-imagen">
-          <img *ngIf="item.imagen_url" [src]="item.imagen_url" [alt]="item.nombre_producto">
-          <ion-icon *ngIf="!item.imagen_url" name="fast-food-outline"></ion-icon>
+      <div
+        *ngFor="let item of detalles; let last = last"
+        class="prod-item"
+        [class.prod-item--last]="last">
+
+        <div class="prod-img">
+          <img *ngIf="item.imagen_url"
+            [src]="item.imagen_url"
+            [alt]="item.nombre_producto">
+          <ion-icon *ngIf="!item.imagen_url"
+            name="fast-food-outline">
+          </ion-icon>
         </div>
-        <div class="producto-info">
-          <span class="producto-nombre">{{ item.nombre_producto }}</span>
-          <span class="producto-cantidad">Cantidad: {{ item.cantidad }}</span>
-          <span class="producto-precio-unit">${{ item.precio_unitario | number:'1.2-2' }} c/u</span>
+
+        <div class="prod-info">
+          <span class="prod-nombre">{{ item.nombre_producto }}</span>
+          <span class="prod-cant">Cantidad: {{ item.cantidad }}</span>
+          <span class="prod-unit">${{ item.precio_unitario | number:'1.2-2' }} c/u</span>
         </div>
-        <span class="producto-subtotal">${{ item.subtotal | number:'1.2-2' }}</span>
+
+        <span class="prod-subtotal">
+          ${{ item.subtotal | number:'1.2-2' }}
+        </span>
       </div>
     </div>
 
-    <!-- Resumen de totales -->
-    <div class="seccion-card">
-      <h3 class="seccion-titulo">
-        <ion-icon name="calculator-outline"></ion-icon>
-        Resumen
-      </h3>
+    <!-- Totales -->
+    <div class="app-card-lg seccion">
+      <div class="seccion-header">
+        <div class="seccion-icono" style="background: var(--color-success-soft);">
+          <ion-icon name="calculator-outline"
+            style="color: var(--color-success);"></ion-icon>
+        </div>
+        <h3 class="seccion-titulo">Resumen</h3>
+      </div>
 
-      <div class="resumen-linea">
+      <div class="summary-line">
         <span>Subtotal</span>
         <span>${{ subtotal | number:'1.2-2' }}</span>
       </div>
-      <div class="resumen-linea">
+      <div class="summary-line">
         <span>IVA (19%)</span>
         <span>${{ iva | number:'1.2-2' }}</span>
       </div>
-      <div class="resumen-divider"></div>
-      <div class="resumen-total">
+      <div class="app-divider"></div>
+      <div class="summary-line summary-total">
         <span>Total</span>
-        <span class="monto-total">${{ pedido.total | number:'1.2-2' }}</span>
+        <span class="summary-amount">${{ pedido.total | number:'1.2-2' }}</span>
       </div>
     </div>
 

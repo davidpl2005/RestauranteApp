@@ -1,37 +1,402 @@
-/*
- * App Global CSS
- * ----------------------------------------------------------------------------
- * Put style rules here that you want to apply globally. These styles are for
- * the entire app and not just one component. Additionally, this file can be
- * used as an entry point to import other CSS/Sass files to be included in the
- * output CSS.
- * For more information on global stylesheets, visit the documentation:
- * https://ionicframework.com/docs/layout/global-stylesheets
- */
-
-/* Core CSS required for Ionic components to work properly */
 @import "@ionic/angular/css/core.css";
-
-/* Basic CSS for apps built with Ionic */
 @import "@ionic/angular/css/normalize.css";
 @import "@ionic/angular/css/structure.css";
 @import "@ionic/angular/css/typography.css";
 @import "@ionic/angular/css/display.css";
-
-/* Optional CSS utils that can be commented out */
 @import "@ionic/angular/css/padding.css";
 @import "@ionic/angular/css/float-elements.css";
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
-/**
- * Ionic Dark Mode
- * -----------------------------------------------------
- * For more info, please see:
- * https://ionicframework.com/docs/theming/dark-mode
- */
+// ============================================================
+// RESET Y BASE
+// ============================================================
+* {
+  box-sizing: border-box;
+}
 
-/* @import "@ionic/angular/css/palettes/dark.always.css"; */
-/* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import "@ionic/angular/css/palettes/dark.system.css";
+ion-content {
+  --background: var(--color-bg);
+}
+
+ion-toolbar[color="primary"] {
+  --background: var(--color-primary);
+  --color: #ffffff;
+}
+
+ion-header ion-toolbar {
+  --min-height: 56px;
+  box-shadow: var(--shadow-sm);
+}
+
+// ============================================================
+// TIPOGRAFÍA GLOBAL
+// ============================================================
+h1, h2, h3, h4, h5 {
+  color: var(--color-text-primary);
+  margin: 0;
+  line-height: 1.3;
+}
+
+p {
+  color: var(--color-text-secondary);
+  margin: 0;
+  line-height: 1.6;
+}
+
+// ============================================================
+// CARDS REUTILIZABLES
+// ============================================================
+.app-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border-light);
+  margin-bottom: var(--space-sm);
+}
+
+.app-card-lg {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-border-light);
+}
+
+// ============================================================
+// BOTONES GLOBALES
+// ============================================================
+.btn-primary {
+  --background: var(--color-primary);
+  --background-activated: var(--color-primary-dark);
+  --border-radius: var(--radius-md);
+  --color: #ffffff;
+  --padding-top: 14px;
+  --padding-bottom: 14px;
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.btn-secondary {
+  --background: var(--color-primary-soft);
+  --background-activated: #DBEAFE;
+  --border-radius: var(--radius-md);
+  --color: var(--color-primary);
+  --padding-top: 14px;
+  --padding-bottom: 14px;
+  font-size: var(--font-size-base);
+  font-weight: 600;
+}
+
+.btn-danger {
+  --background: var(--color-danger);
+  --background-activated: #DC2626;
+  --border-radius: var(--radius-md);
+  --color: #ffffff;
+  --padding-top: 14px;
+  --padding-bottom: 14px;
+  font-size: var(--font-size-base);
+  font-weight: 600;
+}
+
+.btn-success {
+  --background: var(--color-success);
+  --background-activated: #059669;
+  --border-radius: var(--radius-md);
+  --color: #ffffff;
+  --padding-top: 14px;
+  --padding-bottom: 14px;
+  font-size: var(--font-size-base);
+  font-weight: 600;
+}
+
+.btn-outline {
+  --background: transparent;
+  --border-radius: var(--radius-md);
+  --border-width: 1.5px;
+  --border-style: solid;
+  --border-color: var(--color-primary);
+  --color: var(--color-primary);
+  --padding-top: 13px;
+  --padding-bottom: 13px;
+  font-size: var(--font-size-base);
+  font-weight: 600;
+}
+
+// ============================================================
+// INPUTS / FORMULARIOS
+// ============================================================
+.input-field {
+  --background: var(--color-surface-2);
+  --border-radius: var(--radius-md);
+  --padding-start: 14px;
+  --padding-end: 14px;
+  --color: var(--color-text-primary);
+  --placeholder-color: var(--color-text-muted);
+  border-radius: var(--radius-md);
+  margin-bottom: 4px;
+  border: 1.5px solid var(--color-border);
+
+  &.item-has-focus {
+    border-color: var(--color-primary);
+    --background: var(--color-surface);
+  }
+
+  ion-icon[slot="start"] {
+    color: var(--color-primary);
+    font-size: 20px;
+    margin-right: 8px;
+  }
+
+  ion-icon[slot="end"] {
+    color: var(--color-text-muted);
+    font-size: 20px;
+    cursor: pointer;
+  }
+}
+
+.input-label {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  display: block;
+  margin-bottom: 6px;
+  padding-left: 2px;
+}
+
+.input-group {
+  margin-bottom: var(--space-md);
+}
+
+.input-error {
+  color: var(--color-danger);
+  font-size: var(--font-size-xs);
+  padding-left: 4px;
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+// ============================================================
+// BADGES / ETIQUETAS
+// ============================================================
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+
+  &.badge-primary {
+    background: var(--color-primary-soft);
+    color: var(--color-primary-dark);
+  }
+
+  &.badge-success {
+    background: var(--color-success-soft);
+    color: #065F46;
+  }
+
+  &.badge-warning {
+    background: var(--color-warning-soft);
+    color: #92400E;
+  }
+
+  &.badge-danger {
+    background: var(--color-danger-soft);
+    color: #991B1B;
+  }
+}
+
+// ============================================================
+// LISTA DE OPCIONES (para perfil, menús)
+// ============================================================
+.option-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  .option-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    ion-icon {
+      font-size: 21px;
+    }
+  }
+
+  .option-info {
+    flex: 1;
+
+    .option-title {
+      font-size: var(--font-size-base);
+      font-weight: 600;
+      color: var(--color-text-primary);
+      display: block;
+    }
+
+    .option-desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-muted);
+      display: block;
+      margin-top: 2px;
+    }
+  }
+
+  .option-arrow {
+    font-size: 18px;
+    color: var(--color-text-muted);
+  }
+}
+
+// ============================================================
+// ESTADOS VACÍOS
+// ============================================================
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+  text-align: center;
+
+  .empty-icon {
+    font-size: 64px;
+    color: var(--color-text-muted);
+    opacity: 0.4;
+    margin-bottom: 16px;
+  }
+
+  .empty-title {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 8px;
+  }
+
+  .empty-text {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-bottom: 24px;
+  }
+}
+
+// ============================================================
+// LOADING
+// ============================================================
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+  gap: 16px;
+
+  p {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+}
+
+// ============================================================
+// SECCIÓN CON TÍTULO
+// ============================================================
+.section-title {
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin: var(--space-md) 0 var(--space-sm);
+  padding: 0 4px;
+}
+
+// ============================================================
+// DIVIDER
+// ============================================================
+.app-divider {
+  height: 1px;
+  background: var(--color-border);
+  margin: var(--space-md) 0;
+}
+
+// ============================================================
+// LÍNEA DE RESUMEN (precio, totales)
+// ============================================================
+.summary-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+
+  &.summary-total {
+    font-size: var(--font-size-md);
+    font-weight: 700;
+    color: var(--color-text-primary);
+    padding-top: 12px;
+
+    .summary-amount {
+      color: var(--color-success);
+      font-size: var(--font-size-lg);
+    }
+  }
+}
+
+// ============================================================
+// ION-CARD GLOBAL RESET
+// ============================================================
+ion-card {
+  margin: 0;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-sm) !important;
+  background: var(--color-surface) !important;
+  border: 1px solid var(--color-border-light);
+}
+
+// ============================================================
+// ION-ITEM AJUSTES GENERALES
+// ============================================================
+ion-item {
+  --background: var(--color-surface);
+  --color: var(--color-text-primary);
+  --border-color: var(--color-border);
+}
+
+// ============================================================
+// REFRESHER
+// ============================================================
+ion-refresher {
+  --color: var(--color-primary);
+}
+
+// ============================================================
+// MODO OSCURO — ion-card y ajustes adicionales
+// ============================================================
+body.dark {
+  ion-card {
+    border-color: var(--color-border) !important;
+  }
+
+  .input-field {
+    border-color: var(--color-border);
+    --background: var(--color-surface);
+  }
+
+  ion-tab-bar {
+    box-shadow: 0 -1px 0 var(--color-border);
+  }
+}

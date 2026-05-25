@@ -1,125 +1,105 @@
 <ion-content class="register-content">
-  <div class="register-container">
 
-    <!-- Header -->
-    <div class="register-header">
-      <div class="logo-circle">
-        <ion-icon name="person-add" class="logo-icon"></ion-icon>
+  <div class="register-wrapper">
+
+    <!-- Hero superior -->
+    <div class="register-hero">
+      <div class="hero-logo">
+        <ion-icon name="person-add"></ion-icon>
       </div>
-      <h1>Crear Cuenta</h1>
-      <p>Únete a Restaurante Bambino</p>
+      <h1 class="hero-title">Crear Cuenta</h1>
+      <p class="hero-subtitle">Únete a Restaurante Bambino</p>
     </div>
 
-    <!-- Formulario -->
-    <div class="register-form">
+    <!-- Tarjeta del formulario -->
+    <div class="register-card">
+
+      <h2 class="card-title">Registro</h2>
+      <p class="card-subtitle">Completa tus datos para comenzar</p>
+
       <form [formGroup]="form" (ngSubmit)="register()">
 
         <!-- Nombre -->
         <div class="input-group">
-          <ion-item class="input-item" lines="none">
-            <ion-icon 
-              name="person-outline" 
-              slot="start" 
-              class="input-icon">
-            </ion-icon>
-
+          <label class="input-label">Nombre completo</label>
+          <ion-item class="input-field" lines="none">
+            <ion-icon name="person-outline" slot="start"></ion-icon>
             <ion-input
               formControlName="nombre"
               type="text"
-              placeholder="Nombre completo"
+              placeholder="Tu nombre completo"
               autocomplete="name">
             </ion-input>
           </ion-item>
-
-          <div
-            class="error-msg"
+          <div class="input-error"
             *ngIf="form.get('nombre')?.invalid && form.get('nombre')?.touched">
+            <ion-icon name="alert-circle-outline"></ion-icon>
             Mínimo 3 caracteres
           </div>
         </div>
 
         <!-- Correo -->
         <div class="input-group">
-          <ion-item class="input-item" lines="none">
-            <ion-icon 
-              name="mail-outline" 
-              slot="start" 
-              class="input-icon">
-            </ion-icon>
-
+          <label class="input-label">Correo electrónico</label>
+          <ion-item class="input-field" lines="none">
+            <ion-icon name="mail-outline" slot="start"></ion-icon>
             <ion-input
               formControlName="correo"
               type="email"
-              placeholder="Correo electrónico"
+              placeholder="tu@correo.com"
               autocomplete="email">
             </ion-input>
           </ion-item>
-
-          <div
-            class="error-msg"
+          <div class="input-error"
             *ngIf="form.get('correo')?.invalid && form.get('correo')?.touched">
+            <ion-icon name="alert-circle-outline"></ion-icon>
             Ingresa un correo válido
           </div>
         </div>
 
         <!-- Password -->
         <div class="input-group">
-          <ion-item class="input-item" lines="none">
-            <ion-icon
-              name="lock-closed-outline"
-              slot="start"
-              class="input-icon">
-            </ion-icon>
-
+          <label class="input-label">Contraseña</label>
+          <ion-item class="input-field" lines="none">
+            <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
             <ion-input
               formControlName="password"
               [type]="mostrarPassword ? 'text' : 'password'"
-              placeholder="Contraseña">
+              placeholder="Mínimo 3 caracteres">
             </ion-input>
-
             <ion-icon
               [name]="mostrarPassword ? 'eye-off-outline' : 'eye-outline'"
               slot="end"
-              class="input-icon"
               (click)="togglePassword()">
             </ion-icon>
           </ion-item>
-
-          <div
-            class="error-msg"
+          <div class="input-error"
             *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
+            <ion-icon name="alert-circle-outline"></ion-icon>
             Mínimo 3 caracteres
           </div>
         </div>
 
-        <!-- Botón -->
+        <!-- Botón registro -->
         <ion-button
           expand="block"
-          class="btn-register"
+          class="btn-primary btn-register"
           type="submit"
           [disabled]="form.invalid">
-
-          <ion-icon
-            name="checkmark-circle-outline"
-            slot="start">
-          </ion-icon>
-
+          <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
           Crear Cuenta
         </ion-button>
 
       </form>
 
-      <!-- Link Login -->
-      <div class="login-link">
-        <span>¿Ya tienes cuenta? </span>
-
-        <span
-          class="link-text"
-          (click)="irALogin()">
-          Inicia sesión
-        </span>
+      <!-- Login -->
+      <div class="card-footer">
+        <span class="footer-text">¿Ya tienes cuenta?</span>
+        <span class="footer-link" (click)="irALogin()">Inicia sesión</span>
       </div>
 
     </div>
+
   </div>
+
 </ion-content>

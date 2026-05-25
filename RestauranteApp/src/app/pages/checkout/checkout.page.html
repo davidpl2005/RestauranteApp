@@ -1,7 +1,11 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs/carrito" text="Carrito"></ion-back-button>
+      <ion-back-button
+        defaultHref="/tabs/carrito"
+        text="Carrito"
+        color="light">
+      </ion-back-button>
     </ion-buttons>
     <ion-title>Confirmar Pedido</ion-title>
   </ion-toolbar>
@@ -9,76 +13,83 @@
 
 <ion-content class="checkout-content">
 
+  <!-- Loading -->
   <div *ngIf="cargando" class="loading-container">
     <ion-spinner name="crescent" color="primary"></ion-spinner>
+    <p>Cargando...</p>
   </div>
 
-  <div *ngIf="!cargando">
+  <div *ngIf="!cargando" class="checkout-content-inner">
 
-    <div class="seccion-card">
-      <h3 class="seccion-titulo">
-        <ion-icon name="receipt-outline"></ion-icon>
-        Resumen del Pedido
-      </h3>
+    <!-- Resumen de productos -->
+    <div class="app-card-lg seccion">
 
-      <div *ngFor="let item of carrito.items" class="item-resumen">
+      <div class="seccion-header">
+        <div class="seccion-icono" style="background: var(--color-primary-soft);">
+          <ion-icon name="receipt-outline" style="color: var(--color-primary);"></ion-icon>
+        </div>
+        <h3 class="seccion-titulo">Resumen del Pedido</h3>
+      </div>
 
-        <div class="item-imagen">
+      <div *ngFor="let item of carrito.items; let last = last"
+        class="checkout-item"
+        [class.checkout-item--last]="last">
+
+        <div class="checkout-item-img">
           <img
             *ngIf="item.imagen_url"
             [src]="item.imagen_url"
             [alt]="item.nombre">
-
           <ion-icon
             *ngIf="!item.imagen_url"
             name="fast-food-outline">
           </ion-icon>
         </div>
 
-        <div class="item-resumen-info">
-          <span class="item-nombre">{{ item.nombre }}</span>
-          <span class="item-cantidad">x{{ item.cantidad }}</span>
-          <span class="item-precio-unitario">
-            ${{ item.precio | number:'1.2-2' }} c/u
-          </span>
+        <div class="checkout-item-info">
+          <span class="checkout-item-nombre">{{ item.nombre }}</span>
+          <span class="checkout-item-cant">x{{ item.cantidad }} · ${{ item.precio | number:'1.2-2' }} c/u</span>
         </div>
 
-        <span class="item-precio">
+        <span class="checkout-item-subtotal">
           ${{ item.subtotal | number:'1.2-2' }}
         </span>
 
       </div>
 
-      <div class="resumen-divider"></div>
+      <!-- Totales -->
+      <div class="app-divider" style="margin-top: 8px;"></div>
 
-      <div class="resumen-linea">
+      <div class="summary-line">
         <span>Subtotal</span>
         <span>${{ carrito.subtotal | number:'1.2-2' }}</span>
       </div>
-
-      <div class="resumen-linea">
+      <div class="summary-line">
         <span>IVA (19%)</span>
         <span>${{ carrito.iva | number:'1.2-2' }}</span>
       </div>
-
-      <div class="resumen-divider"></div>
-
-      <div class="resumen-total">
+      <div class="app-divider"></div>
+      <div class="summary-line summary-total">
         <span>Total a Pagar</span>
-        <span class="monto-total">${{ carrito.total | number:'1.2-2' }}</span>
+        <span class="summary-amount">${{ carrito.total | number:'1.2-2' }}</span>
       </div>
+
     </div>
 
-    <div class="seccion-card">
-      <h3 class="seccion-titulo">
-        <ion-icon name="wallet-outline"></ion-icon>
-        Método de Pago
-      </h3>
+    <!-- Método de pago -->
+    <div class="app-card-lg seccion">
+
+      <div class="seccion-header">
+        <div class="seccion-icono" style="background: var(--color-success-soft);">
+          <ion-icon name="wallet-outline" style="color: var(--color-success);"></ion-icon>
+        </div>
+        <h3 class="seccion-titulo">Método de Pago</h3>
+      </div>
 
       <div
         *ngFor="let metodo of metodos"
         class="metodo-card"
-        [class.metodo-seleccionado]="metodoPago === metodo.valor"
+        [class.metodo-card--activo]="metodoPago === metodo.valor"
         (click)="seleccionarMetodo(metodo.valor)">
 
         <div class="metodo-icono">
@@ -92,21 +103,27 @@
 
         <ion-icon
           class="metodo-check"
-          [name]="metodoPago === metodo.valor ? 'checkmark-circle' : 'ellipse-outline'"
-          [color]="metodoPago === metodo.valor ? 'success' : 'medium'">
+          [name]="metodoPago === metodo.valor
+            ? 'checkmark-circle'
+            : 'ellipse-outline'"
+          [style.color]="metodoPago === metodo.valor
+            ? 'var(--color-primary)'
+            : 'var(--color-border)'">
         </ion-icon>
 
       </div>
+
     </div>
 
+    <!-- Botón confirmar -->
     <div class="btn-container">
       <ion-button
         expand="block"
-        class="btn-confirmar"
-        [disabled]="!metodoPago || carrito.items.length === 0"
+        class="btn-success"
+        [disabled]="!metodoPago || carrito.items?.length === 0"
         (click)="confirmarPago()">
         <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
-        Confirmar y Pagar ${{ carrito.total | number:'1.2-2' }}
+        Confirmar y Pagar · ${{ carrito.total | number:'1.2-2' }}
       </ion-button>
     </div>
 

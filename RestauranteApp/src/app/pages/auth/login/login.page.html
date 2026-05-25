@@ -1,106 +1,86 @@
 <ion-content class="login-content">
-  <div class="login-container">
 
-    <!-- Logo y título -->
-    <div class="login-header">
-      <div class="logo-circle">
-        <ion-icon name="restaurant" class="logo-icon"></ion-icon>
+  <div class="login-wrapper">
+
+    <!-- Hero superior -->
+    <div class="login-hero">
+      <div class="hero-logo">
+        <ion-icon name="restaurant"></ion-icon>
       </div>
-
-      <h1>Restaurante Bambino</h1>
-      <p>Inicia sesión para continuar</p>
+      <h1 class="hero-title">Restaurante Bambino</h1>
+      <p class="hero-subtitle">La mejor comida de la ciudad</p>
     </div>
 
-    <!-- Formulario -->
-    <div class="login-form">
+    <!-- Tarjeta del formulario -->
+    <div class="login-card">
+
+      <h2 class="card-title">Iniciar Sesión</h2>
+      <p class="card-subtitle">Ingresa tus credenciales para continuar</p>
+
       <form [formGroup]="form" (ngSubmit)="login()">
 
         <!-- Correo -->
         <div class="input-group">
-          <ion-item class="input-item" lines="none">
-
-            <ion-icon
-              name="mail-outline"
-              slot="start"
-              class="input-icon">
-            </ion-icon>
-
+          <label class="input-label">Correo electrónico</label>
+          <ion-item class="input-field" lines="none">
+            <ion-icon name="mail-outline" slot="start"></ion-icon>
             <ion-input
               formControlName="correo"
               type="email"
-              placeholder="Correo electrónico"
+              placeholder="tu@correo.com"
               autocomplete="email">
             </ion-input>
-
           </ion-item>
-
-          <div
-            class="error-msg"
+          <div class="input-error"
             *ngIf="form.get('correo')?.invalid && form.get('correo')?.touched">
+            <ion-icon name="alert-circle-outline"></ion-icon>
             Ingresa un correo válido
           </div>
         </div>
 
         <!-- Password -->
         <div class="input-group">
-          <ion-item class="input-item" lines="none">
-
-            <ion-icon
-              name="lock-closed-outline"
-              slot="start"
-              class="input-icon">
-            </ion-icon>
-
+          <label class="input-label">Contraseña</label>
+          <ion-item class="input-field" lines="none">
+            <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
             <ion-input
               formControlName="password"
               [type]="mostrarPassword ? 'text' : 'password'"
-              placeholder="Contraseña">
+              placeholder="Tu contraseña">
             </ion-input>
-
             <ion-icon
               [name]="mostrarPassword ? 'eye-off-outline' : 'eye-outline'"
               slot="end"
-              class="input-icon"
               (click)="togglePassword()">
             </ion-icon>
-
           </ion-item>
-
-          <div
-            class="error-msg"
+          <div class="input-error"
             *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
+            <ion-icon name="alert-circle-outline"></ion-icon>
             Mínimo 3 caracteres
           </div>
         </div>
 
-        <!-- Botón -->
+        <!-- Botón login -->
         <ion-button
           expand="block"
-          class="btn-login"
+          class="btn-primary btn-login"
           type="submit"
           [disabled]="form.invalid">
-
-          <ion-icon
-            name="log-in-outline"
-            slot="start">
-          </ion-icon>
-
+          <ion-icon name="log-in-outline" slot="start"></ion-icon>
           Iniciar Sesión
         </ion-button>
 
       </form>
 
-      <!-- Link Registro -->
-      <div class="register-link">
-        <span>¿No tienes cuenta? </span>
-
-        <span
-          class="link-text"
-          (click)="irARegistro()">
-          Regístrate aquí
-        </span>
+      <!-- Registro -->
+      <div class="card-footer">
+        <span class="footer-text">¿No tienes cuenta?</span>
+        <span class="footer-link" (click)="irARegistro()">Regístrate aquí</span>
       </div>
 
     </div>
+
   </div>
+
 </ion-content>

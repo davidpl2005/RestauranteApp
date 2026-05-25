@@ -1,42 +1,42 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs/perfil" text="Perfil"></ion-back-button>
+      <ion-back-button
+        defaultHref="/tabs/perfil"
+        text="Perfil"
+        color="light">
+      </ion-back-button>
     </ion-buttons>
     <ion-title>Editar Perfil</ion-title>
-    <ion-buttons slot="end">
-      <ion-button
-        (click)="guardar()"
-        [disabled]="!form || form.invalid || !hayCambios()">
-        <strong>Guardar</strong>
-      </ion-button>
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="editar-content">
 
-  <div *ngIf="form">
+  <div *ngIf="form" class="editar-wrapper">
 
     <!-- Avatar -->
-    <div class="avatar-section">
-      <div class="avatar-circle">
-        <span class="avatar-iniciales">
-          {{ form.get('nombre')?.value ? form.get('nombre')?.value[0]?.toUpperCase() : '?' }}
+    <div class="editar-hero">
+      <div class="avatar-circulo">
+        <span>
+          {{ form.get('nombre')?.value
+              ? form.get('nombre')?.value[0]?.toUpperCase()
+              : '?' }}
         </span>
       </div>
       <p class="avatar-hint">Edita tu nombre y correo</p>
     </div>
 
     <!-- Formulario -->
-    <div class="form-card">
+    <div class="app-card-lg form-card">
 
       <form [formGroup]="form">
 
-        <div class="campo-grupo">
-          <label class="campo-label">Nombre completo</label>
-          <ion-item class="campo-item" lines="none">
-            <ion-icon name="person-outline" slot="start" class="campo-icono"></ion-icon>
+        <!-- Nombre -->
+        <div class="input-group">
+          <label class="input-label">Nombre completo</label>
+          <ion-item class="input-field" lines="none">
+            <ion-icon name="person-outline" slot="start"></ion-icon>
             <ion-input
               formControlName="nombre"
               type="text"
@@ -44,16 +44,18 @@
               autocomplete="name">
             </ion-input>
           </ion-item>
-          <div class="campo-error"
+          <div class="input-error"
             *ngIf="form.get('nombre')?.invalid && form.get('nombre')?.touched">
+            <ion-icon name="alert-circle-outline"></ion-icon>
             Mínimo 3 caracteres
           </div>
         </div>
 
-        <div class="campo-grupo">
-          <label class="campo-label">Correo electrónico</label>
-          <ion-item class="campo-item" lines="none">
-            <ion-icon name="mail-outline" slot="start" class="campo-icono"></ion-icon>
+        <!-- Correo -->
+        <div class="input-group" style="margin-bottom: 0;">
+          <label class="input-label">Correo electrónico</label>
+          <ion-item class="input-field" lines="none">
+            <ion-icon name="mail-outline" slot="start"></ion-icon>
             <ion-input
               formControlName="correo"
               type="email"
@@ -61,8 +63,9 @@
               autocomplete="email">
             </ion-input>
           </ion-item>
-          <div class="campo-error"
+          <div class="input-error"
             *ngIf="form.get('correo')?.invalid && form.get('correo')?.touched">
+            <ion-icon name="alert-circle-outline"></ion-icon>
             Ingresa un correo válido
           </div>
         </div>
@@ -71,17 +74,17 @@
 
     </div>
 
-    <!-- Info -->
-    <div class="info-card">
-      <ion-icon name="shield-checkmark-outline" color="primary"></ion-icon>
-      <p>Tus datos se actualizarán de forma segura en nuestra base de datos.</p>
+    <!-- Aviso -->
+    <div class="aviso-card">
+      <ion-icon name="shield-checkmark-outline"></ion-icon>
+      <p>Tus datos se actualizarán de forma segura.</p>
     </div>
 
     <!-- Botón guardar -->
     <div class="btn-container">
       <ion-button
         expand="block"
-        class="btn-guardar"
+        class="btn-primary"
         (click)="guardar()"
         [disabled]="form.invalid || !hayCambios()">
         <ion-icon name="save-outline" slot="start"></ion-icon>

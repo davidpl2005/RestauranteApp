@@ -1,102 +1,148 @@
-.loading-container {
-  display: flex;
-  justify-content: center;
-  padding: 60px;
-}
-
-.empty-state {
+.facturas-lista {
+  padding: 14px 12px 32px;
   display: flex;
   flex-direction: column;
+  gap: 10px;
+}
+
+// Card factura
+.factura-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: 14px 16px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border-light);
+  cursor: pointer;
+  transition: transform 0.15s;
+
+  &:active { transform: scale(0.985); }
+}
+
+// Encabezado
+.factura-head {
+  display: flex;
   align-items: center;
-  padding: 80px 20px;
-  text-align: center;
-  color: #7f8c8d;
+  gap: 12px;
+}
+
+.factura-icono {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background: var(--color-primary-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 
   ion-icon {
-    font-size: 80px;
-    opacity: 0.25;
-    margin-bottom: 20px;
-  }
-
-  h2 {
     font-size: 20px;
-    font-weight: 700;
-    color: #2c3e50;
-    margin-bottom: 8px;
-  }
-
-  p { font-size: 14px; }
-}
-
-.facturas-lista {
-  padding: 12px;
-}
-
-.factura-card {
-  border-radius: 16px;
-  margin-bottom: 12px;
-  box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-  cursor: pointer;
-
-  &:active { transform: scale(0.98); }
-
-  ion-card-content { padding: 16px; }
-}
-
-.factura-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-
-  .factura-numero {
-    font-size: 15px;
-    font-weight: 700;
-    color: #667eea;
+    color: var(--color-primary);
   }
 }
 
-.factura-info {
+.factura-head-info {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 7px;
-  margin-bottom: 14px;
+  gap: 2px;
+  min-width: 0;
+}
 
-  .info-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 13px;
-    color: #555;
+.factura-numero {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
-    ion-icon {
-      font-size: 16px;
-      color: #667eea;
-    }
+.factura-fecha {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+// Badge emitida
+.factura-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  background: var(--color-success-soft);
+  color: #065F46;
+  font-size: 11px;
+  font-weight: 700;
+  flex-shrink: 0;
+
+  ion-icon { font-size: 13px; }
+}
+
+// Datos
+.factura-datos {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.factura-dato {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+
+  ion-icon {
+    font-size: 16px;
+    color: var(--color-primary);
+    flex-shrink: 0;
   }
 }
 
-.factura-footer {
+// Pie
+.factura-foot {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top: 1px solid #f1f3f5;
-  padding-top: 12px;
+  border-top: 1px solid var(--color-border-light);
+  padding-top: 10px;
+}
 
-  .monto-total {
-    font-size: 20px;
-    font-weight: 700;
-    color: #27ae60;
+.factura-total {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--color-success);
+}
+
+.factura-ver {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-primary);
+
+  ion-icon { font-size: 15px; }
+}
+
+// Modo oscuro
+body.dark {
+  .factura-card {
+    border-color: var(--color-border);
   }
 
-  .ver-detalle {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 13px;
-    color: #667eea;
-    font-weight: 600;
+  .factura-foot {
+    border-top-color: var(--color-border);
+  }
 
-    ion-icon { font-size: 15px; }
+  .factura-icono {
+    background: rgba(37, 99, 235, 0.15);
+  }
+
+  .factura-badge {
+    background: rgba(16, 185, 129, 0.15);
+    color: #6EE7B7;
   }
 }

@@ -1,147 +1,153 @@
 .confirmacion-content {
-  --background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --background: var(--color-bg);
 }
 
-.confirmacion-container {
+.confirmacion-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 40px 20px 50px;
+  padding: 48px 20px 48px;
   min-height: 100vh;
+  gap: 16px;
 }
 
-// Círculo de éxito
+// Área de éxito
+.success-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .success-circle {
-  width: 100px;
-  height: 100px;
-  background: rgba(255, 255, 255, 0.2);
-  border: 4px solid rgba(255, 255, 255, 0.5);
+  width: 90px;
+  height: 90px;
+  background: var(--color-success);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 24px;
-  animation: scaleIn 0.5s ease;
-
-  .check-icon {
-    font-size: 55px;
-    color: white;
-  }
-}
-
-@keyframes scaleIn {
-  from {
-    transform: scale(0);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-.titulo-exito {
-  font-size: 28px;
-  font-weight: 700;
-  color: white;
-  margin: 0 0 8px;
-  text-align: center;
-}
-
-.subtitulo {
-  font-size: 15px;
-  color: rgba(255, 255, 255, 0.85);
-  margin: 0 0 24px;
-  text-align: center;
-}
-
-// Referencia
-.referencia-card {
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 12px;
-  padding: 14px 20px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: white;
-  font-size: 14px;
   margin-bottom: 20px;
-  width: 100%;
-  max-width: 380px;
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.35);
 
   ion-icon {
-    font-size: 22px;
-    flex-shrink: 0;
-  }
-
-  strong {
-    font-size: 15px;
+    font-size: 48px;
+    color: #ffffff;
   }
 }
 
-// Detalles
+.success-titulo {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--color-text-primary);
+  margin-bottom: 6px;
+}
+
+.success-sub {
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+// Referencia pill
+.ref-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-primary-soft);
+  border: 1.5px solid var(--color-primary);
+  border-radius: var(--radius-full);
+  padding: 8px 18px;
+  font-size: 14px;
+  color: var(--color-primary-dark);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease 0.1s, transform 0.5s ease 0.1s;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  ion-icon { font-size: 17px; }
+
+  strong { font-weight: 700; }
+}
+
+// Detalles card
 .detalles-card {
-  background: white;
-  border-radius: 16px;
-  padding: 20px;
   width: 100%;
-  max-width: 380px;
-  margin-bottom: 16px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+  max-width: 420px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease 0.2s, transform 0.5s ease 0.2s;
 
-  .detalle-linea {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid #f1f3f5;
-
-    &:last-child {
-      border-bottom: none;
-    }
-
-    .detalle-label {
-      font-size: 14px;
-      color: #7f8c8d;
-    }
-
-    .detalle-valor {
-      font-size: 14px;
-      font-weight: 600;
-      color: #2c3e50;
-
-      &.monto {
-        color: #27ae60;
-        font-size: 16px;
-      }
-    }
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-// Info
-.info-card {
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 12px;
-  padding: 14px 16px;
+.detalle-fila {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+}
+
+.detalle-label {
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.detalle-valor {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+
+  &.detalle-monto {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--color-success);
+  }
+}
+
+// Aviso
+.aviso-card {
+  width: 100%;
+  max-width: 420px;
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  width: 100%;
-  max-width: 380px;
-  margin-bottom: 28px;
+  background: var(--color-primary-soft);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease 0.3s, transform 0.5s ease 0.3s;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
 
   ion-icon {
-    font-size: 22px;
-    color: white;
+    font-size: 20px;
+    color: var(--color-primary);
     flex-shrink: 0;
-    margin-top: 2px;
+    margin-top: 1px;
   }
 
   p {
     font-size: 13px;
-    color: rgba(255,255,255,0.9);
-    margin: 0;
+    color: var(--color-primary-dark);
     line-height: 1.5;
   }
 }
@@ -149,28 +155,35 @@
 // Botones
 .botones {
   width: 100%;
-  max-width: 380px;
+  max-width: 420px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease 0.4s, transform 0.5s ease 0.4s;
 
-  .btn-pedidos {
-    --background: white;
-    --color: #667eea;
-    --border-radius: 14px;
-    --padding-top: 15px;
-    --padding-bottom: 15px;
-    font-size: 15px;
-    font-weight: 700;
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Modo oscuro
+body.dark {
+  .success-circle {
+    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.2);
   }
 
-  .btn-menu {
-    --border-color: rgba(255,255,255,0.6);
-    --color: white;
-    --border-radius: 14px;
-    --padding-top: 15px;
-    --padding-bottom: 15px;
-    font-size: 15px;
-    font-weight: 600;
+  .ref-pill {
+    background: rgba(37, 99, 235, 0.15);
+    border-color: var(--color-primary-light);
+    color: var(--color-primary-light);
+  }
+
+  .aviso-card {
+    background: rgba(37, 99, 235, 0.12);
+
+    p { color: var(--color-primary-light); }
   }
 }

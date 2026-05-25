@@ -10,35 +10,36 @@ import { Router } from '@angular/router';
 export class ConfirmacionPage implements OnInit {
 
   referencia: string = '';
-  id_pedido: number = 0;
+  id_pedido: number  = 0;
   id_factura: number = 0;
-  total: number = 0;
-  metodo: string = '';
+  total: number      = 0;
+  metodo: string     = '';
+  animando           = false;
 
   metodoNombres: any = {
-    efectivo: 'Efectivo',
-    tarjeta: 'Tarjeta',
+    efectivo:      'Efectivo',
+    tarjeta:       'Tarjeta',
     transferencia: 'Transferencia'
   };
 
   constructor(private router: Router) {
-    // Recibir datos del estado de navegación
     const nav = this.router.getCurrentNavigation();
     if (nav?.extras?.state) {
-      const state = nav.extras.state;
-      this.referencia = state['referencia'];
-      this.id_pedido  = state['id_pedido'];
-      this.id_factura = state['id_factura'];
-      this.total      = state['total'];
-      this.metodo     = state['metodo'];
+      const s        = nav.extras.state;
+      this.referencia = s['referencia'];
+      this.id_pedido  = s['id_pedido'];
+      this.id_factura = s['id_factura'];
+      this.total      = s['total'];
+      this.metodo     = s['metodo'];
     }
   }
 
   ngOnInit() {
-    // Si no hay datos redirigir al menú
     if (!this.referencia) {
       this.router.navigate(['/tabs/menu']);
+      return;
     }
+    setTimeout(() => { this.animando = true; }, 80);
   }
 
   irAlMenu() {

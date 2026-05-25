@@ -11,15 +11,30 @@ import { PedidoService } from '../../core/services/pedido.service';
 })
 export class PedidosPage implements OnInit {
 
-  pedidos: any[] = [];
+  pedidos: any[]    = [];
   cargando: boolean = false;
 
   estadoConfig: any = {
-    pendiente:  { color: 'warning',  icono: 'time-outline',          texto: 'Pendiente'  },
-    preparando: { color: 'primary',  icono: 'flame-outline',         texto: 'Preparando' },
-    listo:      { color: 'tertiary', icono: 'checkmark-done-outline', texto: 'Listo'      },
-    entregado:  { color: 'success',  icono: 'bag-check-outline',     texto: 'Entregado'  },
-    cancelado:  { color: 'danger',   icono: 'close-circle-outline',  texto: 'Cancelado'  }
+    pendiente:  {
+      bg: '#FEF3C7', color: '#92400E',
+      icono: 'time-outline',           texto: 'Pendiente'
+    },
+    preparando: {
+      bg: '#DBEAFE', color: '#1E40AF',
+      icono: 'flame-outline',          texto: 'Preparando'
+    },
+    listo:      {
+      bg: '#EDE9FE', color: '#5B21B6',
+      icono: 'checkmark-done-outline', texto: 'Listo'
+    },
+    entregado:  {
+      bg: '#D1FAE5', color: '#065F46',
+      icono: 'bag-check-outline',      texto: 'Entregado'
+    },
+    cancelado:  {
+      bg: '#FEE2E2', color: '#991B1B',
+      icono: 'close-circle-outline',   texto: 'Cancelado'
+    }
   };
 
   constructor(
@@ -28,19 +43,15 @@ export class PedidosPage implements OnInit {
     private toastCtrl: ToastController
   ) {}
 
-  ngOnInit() {
-    this.cargarPedidos();
-  }
+  ngOnInit() { this.cargarPedidos(); }
 
-  ionViewWillEnter() {
-    this.cargarPedidos();
-  }
+  ionViewWillEnter() { this.cargarPedidos(); }
 
   cargarPedidos() {
     this.cargando = true;
     this.pedidoService.getPedidos().subscribe({
       next: (data) => {
-        this.pedidos = data;
+        this.pedidos  = data;
         this.cargando = false;
       },
       error: () => {
@@ -56,30 +67,21 @@ export class PedidosPage implements OnInit {
 
   getEstado(estado: string) {
     return this.estadoConfig[estado] || {
-      color: 'medium',
-      icono: 'help-outline',
-      texto: estado
+      bg: '#F1F5F9', color: '#475569',
+      icono: 'help-outline', texto: estado
     };
   }
 
   doRefresh(event: any) {
     this.pedidoService.getPedidos().subscribe({
-      next: (data) => {
-        this.pedidos = data;
-        event.target.complete();
-      },
-      error: () => {
-        event.target.complete();
-      }
+      next:  (data) => { this.pedidos = data; event.target.complete(); },
+      error: ()     => event.target.complete()
     });
   }
 
   async mostrarToast(mensaje: string, color: string) {
     const toast = await this.toastCtrl.create({
-      message: mensaje,
-      duration: 2000,
-      color,
-      position: 'bottom'
+      message: mensaje, duration: 2000, color, position: 'bottom'
     });
     await toast.present();
   }

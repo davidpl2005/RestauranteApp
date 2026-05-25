@@ -1,26 +1,23 @@
 <ion-content class="splash-content">
-  <div class="splash-container" [class.animando]="animando">
 
-    <!-- Logo -->
-    <div class="logo-container">
-      <div class="logo-circle">
-        <ion-icon name="restaurant" class="logo-icon"></ion-icon>
-      </div>
+  <div class="splash-container" [class.visible]="animando">
+
+    <div class="splash-logo">
+      <ion-icon name="restaurant"></ion-icon>
     </div>
 
-    <!-- Textos -->
-    <div class="texto-container">
-      <h1 class="titulo">Restaurante</h1>
-      <h1 class="titulo titulo-acento">Bambino</h1>
-      <p class="subtitulo">La mejor comida de la ciudad</p>
+    <div class="splash-texto">
+      <h1 class="splash-title">Restaurante</h1>
+      <h1 class="splash-title accent">Bambino</h1>
+      <p class="splash-sub">La mejor comida de la ciudad</p>
     </div>
 
-    <!-- Puntos de carga -->
-    <div class="loading-dots">
+    <div class="splash-dots">
       <span class="dot"></span>
       <span class="dot"></span>
       <span class="dot"></span>
     </div>
 
   </div>
+
 </ion-content>
